@@ -18,10 +18,20 @@ app.use(express.json({ limit: '256kb' }));
 
 // CORS: necesario para que el HTML de Cronotinta pueda llamar al servidor.
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  console.log("HTTP:", req.method, req.path);
+
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Accept"
+  );
+
+  if (req.method === "OPTIONS") {
+    console.log("CORS preflight recibido");
+    return res.status(204).end();
+  }
+
   next();
 });
 

@@ -11,7 +11,11 @@ if (!process.env.OPENAI_API_KEY) {
   process.exit(1);
 }
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  timeout: 30000,
+  maxRetries: 0
+});
 
 app.disable('x-powered-by');
 app.use(express.json({ limit: '256kb' }));

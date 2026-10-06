@@ -52,6 +52,7 @@ app.get('/health', (_req, res) => {
 });
 
 app.post('/chat', async (req, res) => {
+  console.log('CHAT: entró al endpoint');
   const mensaje = typeof req.body?.mensaje === 'string' ? req.body.mensaje.trim() : '';
   const contexto = req.body?.contexto && typeof req.body.contexto === 'object' ? req.body.contexto : {};
   const historial = Array.isArray(req.body?.historial) ? req.body.historial : [];
@@ -64,7 +65,7 @@ app.post('/chat', async (req, res) => {
   const historialSeguro = historial
     .slice(-12)
     .filter(x => x && (x.role === 'user' || x.role === 'assistant') && typeof x.content === 'string')
-    .map(x => ({ role: x.role, content: x.content.slice(0, 5000) }));
+    .map(x => ({ role: x.role, content: x.tent.slice(0, 5000) }));
 
   const instrucciones = `
 Eres Cassius, el asistente y personaje central de Cronotinta.

@@ -104,13 +104,22 @@ ${JSON.stringify(contexto).slice(0, 12000)}
 `;
 
   try {
+    console.log('CHAT: preparando petición a OpenAI');
+
     const input = [
       { role: 'developer', content: instrucciones },
       ...historialSeguro,
       { role: 'user', content: mensaje.slice(0, 8000) }
     ];
 
-    const response = await client.responses.create({
+    console.log('CHAT: enviando petición a OpenAI');
+      { role: 'developer', content: instrucciones },
+      ...historialSeguro,
+      { role: 'user', content: mensaje.slice(0, 8000) }
+    ];
+
+console.log('CHAT: enviando petición a OpenAI');
+     const response = await client.responses.create({
       model: MODEL,
       input,
       text: {
@@ -139,7 +148,9 @@ ${JSON.stringify(contexto).slice(0, 12000)}
       }
     });
 
-    const datos = JSON.parse(response.output_text);
+    console.log('CHAT: OpenAI respondió');
+
+    const datos = JSON.parse(response.output_text);;
 
     return res.json({
       respuesta: datos.respuesta,

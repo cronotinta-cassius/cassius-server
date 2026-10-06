@@ -106,20 +106,52 @@ ${JSON.stringify(contexto).slice(0, 12000)}
   try {
     console.log('CHAT: preparando petición a OpenAI');
 
-    const input = [
-      { role: 'developer', content: instrucciones },
-      ...historialSeguro,
-      { role: 'user', content: mensaje.slice(0, 8000) }
-    ];
-
-    console.log('CHAT: enviando petición a OpenAI');
-      { role: 'developer', content: instrucciones },
-      ...historialSeguro,
-      { role: 'user', content: mensaje.slice(0, 8000) }
-    ];
+const input = [
+  {
+    role: 'developer',
+    content: instrucciones
+  },
+  ...historialSeguro,
+  {
+    role: 'user',
+    content: mensaje.slice(0, 8000)
+  }
+];
 
 console.log('CHAT: enviando petición a OpenAI');
-     const response = await client.responses.create({
+
+const response = await client.responses.create({
+  model: MODEL,
+  input,
+  text: {
+    format: {
+      type: 'json_schema',
+      name: 'cassius_emocion',
+      strict: true,
+      schema: {
+        type: 'object',
+        properties: {
+          respuesta: {
+            type: 'string'
+          },
+          emocion: {
+            type: 'string',
+            enum: ['normal', 'molesto', 'triste', 'pensativo']
+          },
+          intensidad: {
+            type: 'number',
+            minimum: 0,
+            maximum: 100
+          }
+        },
+        required: ['respuesta', 'emocion', 'intensidad'],
+        additionalProperties: false
+      }
+    }
+  }
+});
+
+console.log('CHAT: OpenAI respondió');
       model: MODEL,
       input,
       text: {

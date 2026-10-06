@@ -151,36 +151,7 @@ const response = await client.responses.create({
     }
   }
 });
-
-console.log('CHAT: OpenAI respondió');
-      model: MODEL,
-      input,
-      text: {
-        format: {
-          type: 'json_schema',
-          name: 'cassius_emocion',
-          strict: true,
-          schema: {
-            type: 'object',
-            properties: {
-              respuesta: { type: 'string' },
-              emocion: {
-                type: 'string',
-                enum: ['normal', 'molesto', 'triste', 'pensativo']
-              },
-              intensidad: {
-                type: 'number',
-                minimum: 0,
-                maximum: 100
-              }
-            },
-            required: ['respuesta', 'emocion', 'intensidad'],
-            additionalProperties: false
-          }
-        }
-      }
-    });
-
+      
     console.log('CHAT: OpenAI respondió');
 
     const datos = JSON.parse(response.output_text);;

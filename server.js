@@ -53,6 +53,7 @@ app.get('/health', (_req, res) => {
 
 app.post('/chat', async (req, res) => {
   console.log('CHAT: entró al endpoint');
+  console.log('CHAT: PRUEBA NUEVA 123');
   const mensaje = typeof req.body?.mensaje === 'string' ? req.body.mensaje.trim() : '';
   const contexto = req.body?.contexto && typeof req.body.contexto === 'object' ? req.body.contexto : {};
   const historial = Array.isArray(req.body?.historial) ? req.body.historial : [];

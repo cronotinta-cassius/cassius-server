@@ -1,35 +1,6 @@
-res.setHeader(
-  'Access-Control-Allow-Headers',
-  'Content-Type, Accept, Authorization'
-);
-
-
 const express = require('express');
 const OpenAI = require('openai');
 const path = require('path');
-const { createClient } = require('@supabase/supabase-js');
-
-const supabaseAdmin = createClient(
-  process.env.SUPABASE_URL || '',
-  process.env.SUPABASE_SECRET_KEY || '',
-  { auth: { persistSession: false } }
-);
-
-async function requireSupabaseAuth(req, res, next) {
-  try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ error: 'Sesión no válida.' });
-    }
-    const token = authHeader.split(' ')[1];
-    const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
-    if (error || !user) return res.status(401).json({ error: 'Token inválido.' });
-    req.user = user;
-    next();
-  } catch (err) {
-    return res.status(500).json({ error: 'Error de autenticación.' });
-  }
-}
 
 const app = express();
 
@@ -711,6 +682,7 @@ async function getPayPalSubscription(
 // ============================================================
 // PAYPAL — ÉXITO
 // ============================================================
+
 app.get(
   '/paypal/success',
   async (req, res) => {
@@ -769,30 +741,6 @@ app.get(
       const estado =
         subscription.status || 'DESCONOCIDO';
 
-      const planId = subscription.plan_id;
-      const userId = subscription.custom_id;
-
-      let targetPlan = null;
-      if (planId === PAYPAL_PLAN_PLUS_ID) targetPlan = 'plus';
-      if (planId === PAYPAL_PLAN_PREMIUM_ID) targetPlan = 'premium';
-
-      // 👈 AQUÍ ACTUALIZAMOS SUPABASE AUTOMÁTICAMENTE
-      if (estado === 'ACTIVE' && targetPlan && userId) {
-        const { error: updateError } = await supabaseAdmin
-          .from('profiles')
-          .update({
-            plan: targetPlan,
-            paypal_subscription_id: subscriptionId
-          })
-          .eq('id', userId);
-
-        if (updateError) {
-          console.error('Error actualizando Supabase:', updateError);
-        } else {
-          console.log(`Plan ${targetPlan} activado con éxito para el usuario ${userId}`);
-        }
-      }
-
       return res.send(`
         <!doctype html>
 
@@ -844,7 +792,8 @@ app.get(
               margin-top:30px;
               opacity:.75;
             ">
-              Tu plan ya ha sido actualizado en tu cuenta de Cronotinta.
+              Ya podemos sincronizar tu plan
+              con tu cuenta de Cronotinta.
             </p>
 
           </body>
@@ -898,7 +847,6 @@ app.get(
     }
   }
 );
-
 
 // ============================================================
 // PAYPAL — CANCELACIÓN

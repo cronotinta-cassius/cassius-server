@@ -1,12 +1,45 @@
 const express = require('express');
 const OpenAI = require('openai');
 const path = require('path');
+const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 
 const PORT = Number(process.env.PORT || 3000);
 const HOST = '0.0.0.0';
 const MODEL = process.env.OPENAI_MODEL || 'gpt-6-luna';
+
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
+
+if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
+  console.error('Faltan SUPABASE_URL o SUPABASE_SECRET_KEY.');
+  process.exit(1);
+}
+
+const supabaseAdmin = createClient(
+  SUPABASE_URL,
+  SUPABASE_SECRET_KEY
+);
+
+async function getSupabaseUser(req) {
+  const authHeader = req.headers.authorization || '';
+
+  if (!authHeader.startsWith('Bearer ')) {
+    return null;
+  }
+
+  const accessToken = authHeader.slice(7);
+
+  const { data, error } =
+    await supabaseAdmin.auth.getUser(accessToken);
+
+  if (error || !data.user) {
+    return null;
+  }
+
+  return data.user;
+}
 
 // ============================================================
 // OPENAI
@@ -81,7 +114,7 @@ app.use((req, res, next) => {
 
   res.setHeader(
     'Access-Control-Allow-Headers',
-    'Content-Type, Accept'
+    'Content-Type, Accept, Authorization'
   );
 
   if (req.method === 'OPTIONS') {
@@ -502,6 +535,19 @@ app.post(
     );
 
     try {
+
+      const user = await getSupabaseUser(req);
+
+      if (!user) {
+        return res.status(401).json({
+          error: 'Sesión de Supabase inválida o expirada.'
+        });
+      }
+
+      console.log(
+        'PAYPAL: usuario autenticado',
+        user.id
+      );
 
       const plan =
         req.body?.plan;

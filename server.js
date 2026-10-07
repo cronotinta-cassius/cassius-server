@@ -379,7 +379,7 @@ ${JSON.stringify(contextoSeguro).slice(0, 8000)}
 // ============================================================
 // SERVIDOR
 // ============================================================
-
+console.log('>>> LLEGUE AL APP.LISTEN');
 app.listen(PORT, HOST, () => {
   console.log(
     `Cassius está escuchando en http://${HOST}:${PORT}`

@@ -1739,16 +1739,49 @@ if(MU.on){if(MU.c&&MU.c.state==="running")mPlay();else{$("enter").hidden=false;$
 /* inicio */
 drawSk();ex=defEx();for(var k0 in col)setCol(k0,col[k0]);dl();applySize();drawSlots();DEF=readForm();drawProj();
 
-/* Planes */
+/* Planes + PayPal */
 function showPlanDetail(name){
  var cards=document.querySelectorAll(".plan-detail");
  cards.forEach(function(el){el.hidden=el.dataset.detail!==name});
  var panel=document.querySelector(".plan-detail-panel");
  if(panel)panel.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
+
+async function iniciarPayPal(plan, button){
+ if(plan!=="plus" && plan!=="premium"){
+  showPlanDetail("free");
+  return;
+ }
+
+ var originalText=button.textContent;
+ button.disabled=true;
+ button.textContent="Conectando con PayPal…";
+
+ try{
+  var response=await fetch("/paypal/create-subscription",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({plan:plan})
+  });
+
+  var data=await response.json().catch(function(){return{}});
+  if(!response.ok || !data.approvalUrl){
+   throw new Error(data.error||"No se pudo iniciar el pago con PayPal.");
+  }
+
+  window.location.href=data.approvalUrl;
+ }catch(err){
+  console.error("PayPal:",err);
+  alert(err.message||"No se pudo iniciar el pago.");
+  button.disabled=false;
+  button.textContent=originalText;
+ }
+}
+
 document.addEventListener("click",function(e){
  var b=e.target.closest(".plan-choose");
- if(b)showPlanDetail(b.dataset.plan||"free");
+ if(!b)return;
+ iniciarPayPal(b.dataset.plan||"free",b);
 });
 
 /* ===== Foro Supabase: funcionalidad ===== */

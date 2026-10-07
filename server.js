@@ -25,18 +25,47 @@ const supabaseAdmin = createClient(
 async function getSupabaseUser(req) {
   const authHeader = req.headers.authorization || '';
 
+  console.log(
+    'SUPABASE AUTH: Authorization header:',
+    authHeader ? 'PRESENTE' : 'AUSENTE'
+  );
+
   if (!authHeader.startsWith('Bearer ')) {
+    console.log(
+      'SUPABASE AUTH: formato Authorization inválido'
+    );
     return null;
   }
 
   const accessToken = authHeader.slice(7);
 
+  console.log(
+    'SUPABASE AUTH: token recibido, longitud:',
+    accessToken.length
+  );
+
   const { data, error } =
     await supabaseAdmin.auth.getUser(accessToken);
 
-  if (error || !data.user) {
+  if (error) {
+    console.error(
+      'SUPABASE AUTH ERROR:',
+      error.message
+    );
     return null;
   }
+
+  if (!data.user) {
+    console.error(
+      'SUPABASE AUTH ERROR: Supabase no devolvió usuario'
+    );
+    return null;
+  }
+
+  console.log(
+    'SUPABASE AUTH: usuario verificado:',
+    data.user.id
+  );
 
   return data.user;
 }

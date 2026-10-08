@@ -1959,7 +1959,7 @@ async function iniciarPayPal(plan, button){
   if(sessionResult&&sessionResult.error)throw sessionResult.error;
   if(!session||!session.access_token){button.disabled=false;button.textContent=originalText;toast("Inicia sesión en Cronotinta para suscribirte.");go("account");return}
   var paypalApi=CASSIUS_SERVER.replace(/\/chat$/i,"");
-  var response=await fetch(paypalApi+"/api/paypal/subscriptions",{
+  var response=await fetch(paypalApi+"/paypal/create-subscription",{
    method:"POST",
    headers:{"Content-Type":"application/json","Authorization":"Bearer "+session.access_token},
    body:JSON.stringify({plan:plan})

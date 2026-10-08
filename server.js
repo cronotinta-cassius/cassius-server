@@ -623,6 +623,8 @@ app.post(
             body: JSON.stringify({
               plan_id: planId,
 
+              custom_id: user.id,
+
               application_context: {
                 brand_name:
                   'Cronotinta',
@@ -816,63 +818,79 @@ app.get(
       const estado =
         subscription.status || 'DESCONOCIDO';
 
+      const userId =
+        subscription.custom_id;
+
+      let plan = null;
+
+      if (subscription.plan_id === PAYPAL_PLAN_PLUS_ID) {
+        plan = 'plus';
+      }
+
+      if (subscription.plan_id === PAYPAL_PLAN_PREMIUM_ID) {
+        plan = 'premium';
+      }
+
+      if (
+        userId &&
+        plan &&
+        estado === 'ACTIVE'
+      ) {
+        const { error: profileError } =
+          await supabaseAdmin
+            .from('profiles')
+            .update({ plan })
+            .eq('id', userId);
+
+        if (profileError) {
+          console.error(
+            'PAYPAL: no se pudo actualizar profiles.plan:',
+            profileError
+          );
+        } else {
+          console.log(
+            'PAYPAL: plan sincronizado:',
+            userId,
+            plan
+          );
+        }
+      } else {
+        console.log(
+          'PAYPAL: no se actualizó el plan.',
+          'estado=', estado,
+          'userId=', userId ? 'PRESENTE' : 'AUSENTE',
+          'plan=', plan || 'DESCONOCIDO'
+        );
+      }
+
+      const target =
+        'cronotinta://paypal-success?status=' +
+        encodeURIComponent(estado);
+
       return res.send(`
         <!doctype html>
-
         <html lang="es">
-
           <head>
             <meta charset="utf-8">
-
-            <meta
-              name="viewport"
-              content="width=device-width,initial-scale=1"
-            >
-
+            <meta name="viewport" content="width=device-width,initial-scale=1">
             <title>Cronotinta</title>
+            <style>
+              body { margin:0; background:#20150f; color:#f3dfb1; font-family:Georgia,serif; text-align:center; padding:60px 25px; }
+              a { display:inline-block; margin-top:25px; padding:14px 22px; border:1px solid #c9962f; color:#f3dfb1; text-decoration:none; border-radius:8px; }
+            </style>
           </head>
-
-          <body style="
-            margin:0;
-            background:#20150f;
-            color:#f3dfb1;
-            font-family:Georgia,serif;
-            text-align:center;
-            padding:60px 25px;
-          ">
-
-            <h1 style="
-              font-size:42px;
-              margin-bottom:20px;
-            ">
-              ⏳ Cronotinta
-            </h1>
-
-            <h2>
-              ¡Suscripción procesada!
-            </h2>
-
-            <p>
-              PayPal confirmó la suscripción.
-            </p>
-
-            <p>
-              Estado:
-              <strong>
-                ${estado}
-              </strong>
-            </p>
-
-            <p style="
-              margin-top:30px;
-              opacity:.75;
-            ">
-              Ya podemos sincronizar tu plan
-              con tu cuenta de Cronotinta.
-            </p>
-
+          <body>
+            <h1>⏳ Cronotinta</h1>
+            <h2>¡Suscripción procesada!</h2>
+            <p>Estado: <strong>${estado}</strong></p>
+            <p>Volviendo a Cronotinta…</p>
+            <a href="${target}">Volver a Cronotinta</a>
+            <script>
+              setTimeout(function () {
+                window.location.href = ${JSON.stringify(target)};
+              }, 500);
+            </script>
           </body>
-
         </html>
       `);
 

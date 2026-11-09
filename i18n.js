@@ -487,7 +487,7 @@
     return !!(el.closest && el.closest(protectedContent));
   }
   function language() {
-    try { return localStorage.getItem(STORAGE_KEY) || "en"; }
+    try { return localStorage.getItem(STORAGE_KEY) === "es" ? "es" : "en"; }
     catch (_) { return "en"; }
   }
   const partialPrefixes = [

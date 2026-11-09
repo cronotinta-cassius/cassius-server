@@ -277,10 +277,18 @@
     const observer = new MutationObserver(records => {
       const lang = language();
       for (const record of records) {
-        record.addedNodes.forEach(node => {
-          if (node.nodeType === Node.TEXT_NODE) translateTextNode(node,lang);
-          else if (node.nodeType === Node.ELEMENT_NODE) translateElement(node,lang);
-        });
+        if (record.type === "characterData") {
+          translateTextNode(record.target,lang);
+        } else if (record.type === "attributes") {
+          const el = record.target, attr = record.attributeName, val = el.getAttribute(attr);
+          const dict = lang === "en" ? translations : reverse;
+          if (val && dict[val]) el.setAttribute(attr,dict[val]);
+        } else {
+          record.addedNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) translateTextNode(node,lang);
+            else if (node.nodeType === Node.ELEMENT_NODE) translateElement(node,lang);
+          });
+        }
       }
       addLanguageControl();
       updateLanguageControl(lang);

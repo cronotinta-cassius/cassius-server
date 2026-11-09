@@ -508,13 +508,14 @@
   const controlPhrases = [
     ["Me gusta","Like"], ["Comentarios","Comments"], ["Favorito","Favorite"],
     ["JUGAR","PLAY"], ["Comentar","Comment"], ["respuestas","replies"],
-    ["respuesta","reply"], ["Tu juego","Your game"], ["· Ver perfil","· View profile"]
+    ["respuesta","reply"], ["Tu juego","Your game"], ["· Ver perfil","· View profile"],
+    ["Dejar de seguir","Unfollow"], ["Seguir","Follow"]
   ];
   function translateDynamicText(original, lang, parent) {
     if (lang !== "en") return original;
     let output = original;
-    const button = parent && parent.closest ? parent.closest("button") : null;
-    if (button && !isProtected(button)) {
+    const control = parent && parent.closest ? parent.closest("button,.forum-card-foot") : null;
+    if (control && !isProtected(control)) {
       for (const [from,to] of controlPhrases) output = output.split(from).join(to);
     }
     const trimmed = output.trimStart();

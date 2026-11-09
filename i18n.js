@@ -489,6 +489,40 @@
     return !!(el.closest && el.closest(protectedContent));
   }
   function language() { return localStorage.getItem(STORAGE_KEY) || "en"; }
+  const partialPrefixes = [
+    ["Escena ","Scene "], ["Capítulo ","Chapter "],
+    ["Desarrollo del proyecto: ","Project progress: "],
+    ["Rutas recorridas: ","Paths explored: "],
+    ["Finales alcanzados: ","Endings reached: "],
+    ["Rutas con problemas: ","Paths with issues: "],
+    ["Volumen ","Volume "], ["Sin conexión: ","Offline: "],
+    ["No se pudo iniciar sesión:","Could not sign in:"],
+    ["No pude iniciar sesión:","Could not sign in:"],
+    ["No pude cerrar sesión:","Could not sign out:"],
+    ["No se pudieron cargar los juegos. ","Could not load games. "],
+    ["Los juegos no cargaron:","Games failed to load:"],
+    ["El juego tarda más de lo normal. ","The game is taking longer than usual. "],
+    ["No se pudo cargar el archivo. ","Could not load the file. "]
+  ];
+  const controlPhrases = [
+    ["Me gusta","Like"], ["Comentarios","Comments"], ["Favorito","Favorite"],
+    ["JUGAR","PLAY"], ["Comentar","Comment"], ["respuestas","replies"],
+    ["respuesta","reply"], ["Tu juego","Your game"], ["· Ver perfil","· View profile"]
+  ];
+  function translateDynamicText(original, lang, parent) {
+    if (lang !== "en") return original;
+    let output = original;
+    const button = parent && parent.closest ? parent.closest("button") : null;
+    if (button && !isProtected(button)) {
+      for (const [from,to] of controlPhrases) output = output.split(from).join(to);
+    }
+    const trimmed = output.trimStart();
+    const leading = output.slice(0,output.length-trimmed.length);
+    for (const [from,to] of partialPrefixes) {
+      if (trimmed.startsWith(from)) return leading + to + trimmed.slice(from.length);
+    }
+    return output;
+  }
   function translateTextNode(node, lang) {
     const parent = node.parentElement;
     if (!parent || ignored.has(parent.tagName) || isProtected(parent)) return;
@@ -501,7 +535,7 @@
     }
     const trimmed = original.trim();
     if (!trimmed) return;
-    const translated = lang === "en" ? (translations[trimmed] || trimmed) : trimmed;
+    const translated = lang === "en" ? (translations[trimmed] || translateDynamicText(trimmed,lang,parent)) : trimmed;
     const start = original.indexOf(trimmed);
     const output = original.slice(0,start) + translated + original.slice(start+trimmed.length);
     textRendered.set(node,output);

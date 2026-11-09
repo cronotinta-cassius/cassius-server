@@ -166,7 +166,7 @@ app.use((req, res, next) => {
   if (req.method !== 'GET' || req.path !== '/app') return next();
   fs.readFile(path.join(__dirname, 'index.html'), 'utf8', (error, html) => {
     if (error) return next(error);
-    const bootstrap = '<script>try{document.documentElement.lang=localStorage.getItem("cronotinta-language")||"en"}catch(e){document.documentElement.lang="en"}</script><script src="/i18n.js" defer></script>';
+    const bootstrap = '<script>try{document.documentElement.lang=localStorage.getItem("cronotinta-language")==="es"?"es":"en"}catch(e){document.documentElement.lang="en"}</script><script src="/i18n.js" defer></script>';
     if (html.includes('/i18n.js')) return res.type('html').send(html);
     const output = html.includes('</head>') ? html.replace('</head>', bootstrap + '</head>') : html.includes('</body>') ? html.replace('</body>', bootstrap + '</body>') : html + bootstrap;
     res.type('html').send(output);

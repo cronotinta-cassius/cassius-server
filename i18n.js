@@ -431,12 +431,33 @@
   };
 
   const reverse = Object.fromEntries(Object.entries(translations).map(([es,en]) => [en,es]));
-  const ignored = new Set(["SCRIPT","STYLE","NOSCRIPT","TEXTAREA","INPUT","SELECT","OPTION"]);
+  const ignored = new Set(["SCRIPT","STYLE","NOSCRIPT","TEXTAREA","INPUT","SELECT"]);
+  const protectedContent = [
+    "[data-user-content]", ".user-content", ".post-content", ".comment-content",
+    "#plist", "#charsList", "#about .about-section",
+    "#say", "#ctCassius", "#ctCassiusFace", ".cassius-chat-message",
+    "#creator .pvs", "#creator .dlg", "#creator .slots .slot",
+    "#wk .ch", "#wk .tree", "#wk .iss", "#wk .scene-char-preview",
+    ".ct-social-grid", ".ct-profile-head",
+    ".feed-card .feed-body", ".feed-card .feed-author", ".feed-card .feed-time",
+    ".feed-card .feed-comment span", ".feed-card .ct-author-link",
+    ".forum-card h4", ".forum-card .forum-excerpt", ".forum-card .forum-meta",
+    "#forumPostView article h2", "#forumPostView article p",
+    "#forumPostView article .forum-meta", "#forumPostView article .forum-reply-body",
+    ".ct-author-link", "[contenteditable='true']"
+  ].join(",");
+  function isProtected(node) {
+    const el = node && (node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement);
+    if (!el) return false;
+    if (el.isContentEditable || el.closest("[contenteditable='true']")) return true;
+    if (el.matches && el.matches(protectedContent)) return true;
+    return !!(el.closest && el.closest(protectedContent));
+  }
   function language() { return localStorage.getItem(STORAGE_KEY) || "en"; }
   function translateTextNode(node, lang) {
     const parent = node.parentElement;
-    if (!parent || ignored.has(parent.tagName) || parent.isContentEditable ||
-        parent.closest("[data-user-content],.user-content,.post-content,.comment-content,[contenteditable='true']")) return;
+    if (!parent || ignored.has(parent.tagName) || isProtected(parent)) return;
+    if (parent.tagName === "OPTION" && parent.closest("#wk select[data-s], #wk #ra, #wk #rb")) return;
     const original = node.nodeValue;
     const trimmed = original.trim();
     if (!trimmed) return;
@@ -455,6 +476,7 @@
     if (root.querySelectorAll) {
       root.querySelectorAll("[placeholder],[aria-label],[title]").forEach(el => {
         ["placeholder","aria-label","title"].forEach(attr => {
+          if (isProtected(el)) return;
           const val = el.getAttribute(attr);
           if (!val) return;
           const dict = lang === "en" ? translations : reverse;
@@ -496,10 +518,16 @@
       b.setAttribute("aria-pressed",String(b.dataset.ctLanguage === lang));
     });
   }
+  function updateDocumentTitle(lang) {
+    const title = document.title;
+    const dict = lang === "en" ? translations : reverse;
+    if (dict[title]) document.title = dict[title];
+  }
   function setLanguage(lang) {
     lang = lang === "es" ? "es" : "en";
     localStorage.setItem(STORAGE_KEY,lang);
     document.documentElement.lang = lang;
+    updateDocumentTitle(lang);
     translateElement(document.body,lang);
     addLanguageControl();
     updateLanguageControl(lang);
@@ -509,6 +537,7 @@
   document.addEventListener("DOMContentLoaded",() => {
     const lang = language();
     document.documentElement.lang = lang;
+    updateDocumentTitle(lang);
     translateElement(document.body,lang);
     addLanguageControl();
     updateLanguageControl(lang);

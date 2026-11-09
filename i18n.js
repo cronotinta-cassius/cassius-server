@@ -563,9 +563,14 @@
     ["No pude cerrar sesión:","Could not sign out:"],
     ["No se pudieron cargar los juegos. ","Could not load games. "],
     ["Los juegos no cargaron:","Games failed to load:"],
+    ["No se pudo compartir:","Could not share:"],
+    ["No se pudo crear el enlace:","Could not create the link:"],
+    ["Abrir colaboración de ","Open collaboration for "],
+    ["regalado por 30 días. Vence ","gifted for 30 days. Expires "],
     ["El juego tarda más de lo normal. ","The game is taking longer than usual. "],
     ["No se pudo cargar el archivo. ","Could not load the file. "]
   ];
+  const partialSuffixes = [["MB · Este archivo será público en el feed.","MB · This file will be public in the feed."]];
   const controlPhrases = [
     ["Me gusta","Like"], ["Comentarios","Comments"], ["Favorito","Favorite"],
     ["JUGAR","PLAY"], ["Comentar","Comment"], ["respuestas","replies"],
@@ -583,6 +588,9 @@
     const leading = output.slice(0,output.length-trimmed.length);
     for (const [from,to] of partialPrefixes) {
       if (trimmed.startsWith(from)) return leading + to + trimmed.slice(from.length);
+    }
+    for (const [from,to] of partialSuffixes) {
+      if (trimmed.endsWith(from)) return leading + trimmed.slice(0,trimmed.length-from.length) + to;
     }
     return output;
   }

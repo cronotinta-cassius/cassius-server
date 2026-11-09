@@ -158,6 +158,20 @@ app.use((req, res, next) => {
 // ARCHIVOS / APP
 // ============================================================
 
+const fs = require('fs');
+
+// Serve the main app with the language module injected. The HTML stays
+// untouched so large embedded artwork and project data are preserved.
+app.use((req, res, next) => {
+  if (req.method !== 'GET' || (req.path !== '/' && req.path !== '/app')) return next();
+  fs.readFile(path.join(__dirname, 'index.html'), 'utf8', (error, html) => {
+    if (error) return next(error);
+    const script = '<script src="/i18n.js" defer></script>';
+    const output = html.includes('</body>') ? html.replace('</body>', script + '</body>') : html + script;
+    res.type('html').send(output);
+  });
+});
+
 app.use(
   express.static(path.join(__dirname))
 );

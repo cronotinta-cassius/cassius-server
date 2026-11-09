@@ -31,9 +31,7 @@
     "Volumen ":"Volume ",
     "Sin conexión: ":"Offline: ",
     "Decisión incompleta en «":"Incomplete choice in “",
-    "» no cambia el desenlace. Considera añadir una consecuencia.":"” does not change the outcome. Consider adding a consequence.",
     "La decisión en «":"The choice in “",
-    "»":"”",
     "Expresiones: toca «＋ Nueva expresión», ponle nombre y sube su imagen (PNG, WebP, JPG, GIF o SVG · máx. 8 MB)":"Expressions: select “＋ New expression”, name it, and upload an image (PNG, WebP, JPG, GIF, or SVG · max 8 MB)",
     "También puedes arrastrar una imagen sobre una expresión o pegarla con Ctrl+V.":"You can also drag an image onto an expression or paste it with Ctrl+V.",
     "La apuesta mínima es de 5 Cronos.":"The minimum wager is 5 Cronos.",
@@ -488,7 +486,10 @@
     if (el.matches && el.matches(protectedContent)) return true;
     return !!(el.closest && el.closest(protectedContent));
   }
-  function language() { return localStorage.getItem(STORAGE_KEY) || "en"; }
+  function language() {
+    try { return localStorage.getItem(STORAGE_KEY) || "en"; }
+    catch (_) { return "en"; }
+  }
   const partialPrefixes = [
     ["Escena ","Scene "], ["Capítulo ","Chapter "],
     ["Desarrollo del proyecto: ","Project progress: "],
@@ -555,18 +556,21 @@
     rendered[attr] = output;
     if (output !== current) el.setAttribute(attr,output);
   }
+  function translateAttributes(el,lang) {
+    if (!el || !el.getAttribute || isProtected(el)) return;
+    ["placeholder","aria-label","title"].forEach(attr => {
+      if (el.hasAttribute(attr)) translateAttribute(el,attr,lang);
+    });
+  }
   function translateElement(root, lang) {
     if (!root) return;
+    if (root.nodeType === Node.ELEMENT_NODE) translateAttributes(root,lang);
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     const nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(n => translateTextNode(n,lang));
     if (root.querySelectorAll) {
-      root.querySelectorAll("[placeholder],[aria-label],[title]").forEach(el => {
-        ["placeholder","aria-label","title"].forEach(attr => {
-          if (el.hasAttribute(attr)) translateAttribute(el,attr,lang);
-        });
-      });
+      root.querySelectorAll("[placeholder],[aria-label],[title]").forEach(el => translateAttributes(el,lang));
     }
   }
   function addLanguageControl() {
@@ -607,7 +611,7 @@
   }
   function setLanguage(lang) {
     lang = lang === "es" ? "es" : "en";
-    localStorage.setItem(STORAGE_KEY,lang);
+    try { localStorage.setItem(STORAGE_KEY,lang); } catch (_) { /* storage may be unavailable */ }
     document.documentElement.lang = lang;
     updateDocumentTitle(lang);
     translateElement(document.body,lang);

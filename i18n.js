@@ -193,11 +193,11 @@
   };
 
   const reverse = Object.fromEntries(Object.entries(translations).map(([es,en]) => [en,es]));
-  const ignored = "SCRIPT STYLE NOSCRIPT TEXTAREA INPUT SELECT OPTION";
+  const ignored = new Set(["SCRIPT","STYLE","NOSCRIPT","TEXTAREA","INPUT","SELECT","OPTION"]);
   function language() { return localStorage.getItem(STORAGE_KEY) || "en"; }
   function translateTextNode(node, lang) {
     const parent = node.parentElement;
-    if (!parent || ignored.includes(parent.tagName) || parent.isContentEditable ||
+    if (!parent || ignored.has(parent.tagName) || parent.isContentEditable ||
         parent.closest("[data-user-content],.user-content,.post-content,.comment-content,[contenteditable='true']")) return;
     const original = node.nodeValue;
     const trimmed = original.trim();

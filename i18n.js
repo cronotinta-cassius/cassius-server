@@ -285,6 +285,6 @@
       addLanguageControl();
       updateLanguageControl(lang);
     });
-    observer.observe(document.body,{childList:true,subtree:true});
+    observer.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:["placeholder","aria-label","title"]});
   });
 })();

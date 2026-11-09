@@ -2,6 +2,47 @@
   "use strict";
   const STORAGE_KEY = "cronotinta-language";
   const translations = {
+    "Ej: Ada Vapor":"e.g. Ada Vapor",
+    "Humana, autómata…":"Human, automaton…",
+    "24 años o 300 ciclos":"24 years or 300 cycles",
+    "ella, él, elle…":"she, he, they…",
+    "Nueva personalidad…":"New personality…",
+    "Altura, rasgos, accesorios, cicatrices, gadgets de latón…":"Height, features, accessories, scars, brass gadgets…",
+    "Ej: Manipular el tiempo":"e.g. Manipulate time",
+    "¿De qué época viene? ¿Qué hizo con el tiempo… o qué le hizo el tiempo a él?":"What era are they from? What did they do with time… or what did time do to them?",
+    "Lo que nadie debe saber":"What no one should know",
+    "Lo que quiere conseguir":"What they want to achieve",
+    "¿De qué trata tu novela?":"What's your story about?",
+    "¿De qué quieres hablar?":"What would you like to talk about?",
+    "Escribe tu publicación…":"Write your post…",
+    "Un avance de tu proyecto, una idea, una pregunta…":"A project update, an idea, a question…",
+    "Comenta este juego…":"Comment on this game…",
+    "Escribe un comentario…":"Write a comment…",
+    "rival, familia…":"rival, family…",
+    "etiquetas, separadas por coma":"tags, separated by commas",
+    "Nota":"Note",
+    "Escena ":"Scene ",
+    " · inicio":" · start",
+    "Capítulo ":"Chapter ",
+    "Rutas recorridas: ":"Paths explored: ",
+    "Finales alcanzados: ":"Endings reached: ",
+    "Rutas con problemas: ":"Paths with issues: ",
+    "Desarrollo del proyecto: ":"Project progress: ",
+    "Volumen ":"Volume ",
+    "Sin conexión: ":"Offline: ",
+    "Decisión incompleta en «":"Incomplete choice in “",
+    "» no cambia el desenlace. Considera añadir una consecuencia.":"” does not change the outcome. Consider adding a consequence.",
+    "La decisión en «":"The choice in “",
+    "»":"”",
+    "Expresiones: toca «＋ Nueva expresión», ponle nombre y sube su imagen (PNG, WebP, JPG, GIF o SVG · máx. 8 MB)":"Expressions: select “＋ New expression”, name it, and upload an image (PNG, WebP, JPG, GIF, or SVG · max 8 MB)",
+    "También puedes arrastrar una imagen sobre una expresión o pegarla con Ctrl+V.":"You can also drag an image onto an expression or paste it with Ctrl+V.",
+    "La apuesta mínima es de 5 Cronos.":"The minimum wager is 5 Cronos.",
+    "Inicia sesión para dar Me gusta.":"Sign in to like this.",
+    "No se pudo cargar el feed. Revisa las tablas del feed y los juegos en Supabase.":"Could not load the feed. Check the feed and game tables in Supabase.",
+    "No se pudieron cargar las publicaciones.":"Could not load posts.",
+    "La publicación ya no existe.":"This post no longer exists.",
+    "Los juegos no cargaron:":"Games failed to load:",
+    "Usa Actualizar juegos para reintentar.":"Use Refresh games to try again.",
     "Cronotinta 2.0 · Seguridad":"Cronotinta 2.0 · Safety",
     "Seguridad y legal en el catálogo":"Safety & legal in the catalog",
     "Encuentra el modo seguro, las reglas de convivencia, los términos y la información de privacidad en una categoría dedicada.":"Find safe mode, community guidelines, terms, and privacy information in one dedicated category.",
@@ -420,7 +461,11 @@
     "Detalles (opcional)":"Details (optional)","Preparar reporte":"Prepare report"
   };
 
-  const reverse = Object.fromEntries(Object.entries(translations).map(([es,en]) => [en,es]));
+  const textSources = new WeakMap();
+  const textRendered = new WeakMap();
+  const attributeSources = new WeakMap();
+  const attributeRendered = new WeakMap();
+  const sourceDocumentTitle = document.title;
   const ignored = new Set(["SCRIPT","STYLE","NOSCRIPT","TEXTAREA","INPUT","SELECT"]);
   const protectedContent = [
     "[data-user-content]", ".user-content", ".post-content", ".comment-content",
@@ -448,14 +493,33 @@
     const parent = node.parentElement;
     if (!parent || ignored.has(parent.tagName) || isProtected(parent)) return;
     if (parent.tagName === "OPTION" && parent.closest("#wk select[data-s], #wk #ra, #wk #rb")) return;
-    const original = node.nodeValue;
+    const current = node.nodeValue;
+    let original = textSources.get(node);
+    if (original === undefined || textRendered.get(node) !== current) {
+      original = current;
+      textSources.set(node,original);
+    }
     const trimmed = original.trim();
     if (!trimmed) return;
-    const dict = lang === "en" ? translations : reverse;
-    const translated = dict[trimmed];
-    if (!translated) return;
+    const translated = lang === "en" ? (translations[trimmed] || trimmed) : trimmed;
     const start = original.indexOf(trimmed);
-    node.nodeValue = original.slice(0,start) + translated + original.slice(start+trimmed.length);
+    const output = original.slice(0,start) + translated + original.slice(start+trimmed.length);
+    textRendered.set(node,output);
+    if (output !== current) node.nodeValue = output;
+  }
+  function translateAttribute(el, attr, lang) {
+    if (isProtected(el)) return;
+    let sources = attributeSources.get(el);
+    let rendered = attributeRendered.get(el);
+    if (!sources) { sources = {}; attributeSources.set(el,sources); }
+    if (!rendered) { rendered = {}; attributeRendered.set(el,rendered); }
+    const current = el.getAttribute(attr);
+    if (sources[attr] === undefined || rendered[attr] !== current) sources[attr] = current;
+    const original = sources[attr];
+    if (original == null) return;
+    const output = lang === "en" ? (translations[original] || original) : original;
+    rendered[attr] = output;
+    if (output !== current) el.setAttribute(attr,output);
   }
   function translateElement(root, lang) {
     if (!root) return;
@@ -466,11 +530,7 @@
     if (root.querySelectorAll) {
       root.querySelectorAll("[placeholder],[aria-label],[title]").forEach(el => {
         ["placeholder","aria-label","title"].forEach(attr => {
-          if (isProtected(el)) return;
-          const val = el.getAttribute(attr);
-          if (!val) return;
-          const dict = lang === "en" ? translations : reverse;
-          if (dict[val]) el.setAttribute(attr,dict[val]);
+          if (el.hasAttribute(attr)) translateAttribute(el,attr,lang);
         });
       });
     }
@@ -509,9 +569,7 @@
     });
   }
   function updateDocumentTitle(lang) {
-    const title = document.title;
-    const dict = lang === "en" ? translations : reverse;
-    if (dict[title]) document.title = dict[title];
+    document.title = lang === "en" ? (translations[sourceDocumentTitle] || sourceDocumentTitle) : sourceDocumentTitle;
   }
   function setLanguage(lang) {
     lang = lang === "es" ? "es" : "en";
@@ -537,9 +595,7 @@
         if (record.type === "characterData") {
           translateTextNode(record.target,lang);
         } else if (record.type === "attributes") {
-          const el = record.target, attr = record.attributeName, val = el.getAttribute(attr);
-          const dict = lang === "en" ? translations : reverse;
-          if (val && dict[val]) el.setAttribute(attr,dict[val]);
+          translateAttribute(record.target,record.attributeName,lang);
         } else {
           record.addedNodes.forEach(node => {
             if (node.nodeType === Node.TEXT_NODE) translateTextNode(node,lang);

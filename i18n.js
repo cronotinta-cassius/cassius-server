@@ -684,8 +684,8 @@
     ,"Cuando publiques":"When you publish"
     ,"El contenido publicado puede ser visible y jugable por otras personas. Evita incluir datos personales tuyos o ajenos. El borrado de la publicación y el plazo para que desaparezcan copias o cachés deben describirse en los Términos finales.":"Published content may be visible and playable by other people. Avoid including your own or anyone else's personal information. The deletion of a post and the time required for copies or caches to disappear must be described in the final Terms."
 
-    ,"cada marco espera una ilustración":"each frame is waiting for an illustration"
-    ,"· Próximamente":"· Coming soon"
+    
+    
     ,"Todavía no hay respuestas.":"There are no replies yet."
     ,"Marcar como leídas":"Mark as read"
     ,"Pausa":"Pause"
@@ -720,10 +720,10 @@
     ,"el mensaje que escribes, hasta 12 mensajes recientes, pantalla actual y cantidad/nombre/formato de proyectos, más estado emocional, se envían a cassius-server.onrender.com para generar la respuesta.":"the message you write, up to 12 recent messages, the current screen, and the number, names, and formats of projects, plus emotional state, are sent to cassius-server.onrender.com to generate a reply."
     ,"el inicio de suscripción se tramita en el servidor y PayPal; Cronotinta guarda el plan y estado de suscripción. La interfaz no solicita ni guarda el número de tarjeta.":"subscription setup is handled by the server and PayPal; Cronotinta stores the plan and subscription status. The interface does not request or store your card number."
     ,"IndexedDB, localStorage y sessionStorage conservan proyectos, preferencias de música y datos de sesión/recorrido en este navegador.":"IndexedDB, localStorage, and sessionStorage retain projects, music preferences, and session/walkthrough data in this browser."
-    ,"El código de esta copia se conecta con Supabase (autenticación, base de datos y archivos), cassius-server.onrender.com (chat y operaciones de suscripción), PayPal (pagos), jsDelivr (biblioteca de Supabase) y Google Fonts (fuentes). Enlaces a Instagram y TikTok pueden abrir servicios externos. Cronotinta no vende datos personales. Puede compartirlos con los proveedores descritos solo para prestar las funciones solicitadas; hay que revisar sus contratos, ubicaciones, transferencias internacionales y subencargados antes de publicar.":"This build connects to Supabase (authentication, database, and files), cassius-server.onrender.com (chat and subscription operations), PayPal (payments), jsDelivr (Supabase library), and Google Fonts (fonts). Links to Instagram and TikTok may open external services. Cronotinta does not sell personal data. It may share data with the listed providers only to deliver the requested features; their contracts, locations, international transfers, and subprocessors must be reviewed before launch."
-    ,"[jurisdicciones]":"[jurisdictions]"
-    ,"[completar tras definir titular y mercados]":"[complete after defining the responsible party and markets]"
-    ,"[definir y publicar]":"[define and publish]"
+    
+    
+    
+    
     ,"Novela Visual, RPG e Híbrido":"Visual Novel, RPG & Hybrid"
 
   };

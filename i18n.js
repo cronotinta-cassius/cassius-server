@@ -734,6 +734,15 @@
     ,"No hay cambios para rehacer.":"There are no changes to redo."
     ,"Mapa":"Map"
 
+    ,", plazos de conservación y texto de renovación/cancelación revisado contra PayPal. Contacto: cronotinta.cassius@gmail.com. Creación de juegos para todas las edades. Salvaguardas de cuenta y comunidad para menores aún pendientes.":", retention periods and renewal/cancellation wording reviewed against PayPal. Contact: cronotinta.cassius@gmail.com. Game creation for all ages. Account and community safeguards for minors are still pending."
+    ,"Los datos se usan para prestar cuentas, editor, comunidad, chat, progreso y pagos; prevenir abuso; y mantener el servicio. Plazos de conservación por categoría, copias de seguridad y registros técnicos:":"Data is used to provide accounts, the editor, community, chat, progress tracking, and payments; prevent abuse; and maintain the service. Retention periods by category, backups, and technical logs:"
+    ,". Los proyectos locales permanecen en el navegador hasta que se borren los datos del sitio o el propio proyecto; sincronización y recuperación no deben prometerse salvo que se implementen.":". Local projects remain in the browser until the site data or the project itself is deleted; synchronization and recovery must not be promised unless implemented."
+    ,"Podrás solicitar acceso, corrección, portabilidad, oposición o eliminación cuando lo conceda la ley aplicable mediante":"You may request access, correction, portability, objection, or deletion where provided by applicable law by contacting"
+    ,". La copia no tiene todavía un flujo de eliminación integral de cuenta: debe implementarse y verificar qué datos deben conservarse por seguridad, pagos o ley.":". This build does not yet have a complete account-deletion process; one must be implemented, and any data that must be retained for security, payments, or legal reasons must be identified."
+    ,"Cronotinta podrá retirar contenido o limitar cuentas que incumplan las reglas, considerando gravedad y repetición. Canal para reportes y apelaciones:":"Cronotinta may remove content or restrict accounts that violate the rules, taking severity and repeated violations into account. Reporting and appeals contact:"
+    ,"; el flujo de reporte y apelación dentro de la app aún debe implementarse.. La aplicación todavía debe implementar controles visibles para reportar contenido, bloquear usuarios, notificar decisiones y pedir revisión.":"; in-app reporting and appeals still need to be implemented. The app must also implement visible controls for reporting content, blocking users, notifying people of decisions, and requesting a review."
+    ,"La protección actual funciona en esta copia del navegador. No sustituye controles del servidor ni una verificación parental.":"Current protection works in this browser build. It does not replace server-side controls or parental verification."
+
   };
 
   const textSources = new WeakMap();

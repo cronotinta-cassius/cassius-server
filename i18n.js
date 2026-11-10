@@ -726,6 +726,14 @@
     
     ,"Novela Visual, RPG e Híbrido":"Visual Novel, RPG & Hybrid"
 
+    ,"⚠ Advertencia de canon":"⚠ Canon warning"
+    ,"Conservar":"Keep"
+    ,"Adaptar":"Adapt"
+    ,"Crear alternativa":"Create alternative"
+    ,"No hay un cambio anterior para deshacer.":"There is no previous change to undo."
+    ,"No hay cambios para rehacer.":"There are no changes to redo."
+    ,"Mapa":"Map"
+
   };
 
   const textSources = new WeakMap();
@@ -778,6 +786,7 @@
     ["regalado por 30 días. Vence ","gifted for 30 days. Expires "],
     ["El juego tarda más de lo normal. ","The game is taking longer than usual. "],
     ["No se pudo cargar el archivo. ","Could not load the file. "],
+    ["Sprite de ","Sprite for "],
     ["No pude iniciar sesión: ","Could not sign in: "],
     ["No pude crear la cuenta: ","Could not create account: "],
     ["No se pudo inicializar la cuenta: ","Could not initialize account: "],
@@ -820,6 +829,9 @@
       for (const [from,to] of controlPhrases) output = output.split(from).join(to);
     }
     if (output.startsWith("Colaboración activada · Permiso:")) output = output.replace(" · Versión ", " · Version ");
+    if (parent && parent.closest && parent.closest(".crx-muted") && output.startsWith("Filas: ")) {
+      output = output.replace(/^Filas: /, "Rows: ").replace(/ · Columnas: /g, " · Columns: ").replace(/ · Velocidad: /g, " · Speed: ").replace(/ fps · Dirección: /g, " fps · Direction: ");
+    }
     const trimmed = output.trimStart();
     const leading = output.slice(0,output.length-trimmed.length);
     for (const [from,to] of partialPrefixes) {

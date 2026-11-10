@@ -684,6 +684,21 @@
     ,"Cuando publiques":"When you publish"
     ,"El contenido publicado puede ser visible y jugable por otras personas. Evita incluir datos personales tuyos o ajenos. El borrado de la publicación y el plazo para que desaparezcan copias o cachés deben describirse en los Términos finales.":"Published content may be visible and playable by other people. Avoid including your own or anyone else's personal information. The deletion of a post and the time required for copies or caches to disappear must be described in the final Terms."
 
+    ,"cada marco espera una ilustración":"each frame is waiting for an illustration"
+    ,"· Próximamente":"· Coming soon"
+    ,"Todavía no hay respuestas.":"There are no replies yet."
+    ,"Marcar como leídas":"Mark as read"
+    ,"Pausa":"Pause"
+    ,"Cuenta:":"Account:"
+    ,"Creación:":"Creation:"
+    ,"Comunidad:":"Community:"
+    ,"Actividad:":"Activity:"
+    ,"Chat con Cassius:":"Chat with Cassius:"
+    ,"Suscripciones:":"Subscriptions:"
+    ,"Almacenamiento local:":"Local storage:"
+    ,"Colaboración activada · Permiso:":"Collaboration enabled · Permission:"
+    ,"Versión":"Version"
+
   };
 
   const textSources = new WeakMap();

@@ -518,6 +518,124 @@
     "Datos personales expuestos":"Exposed personal information","Contenido sexual o violento":"Sexual or violent content",
     "Spam o estafa":"Spam or scam","Derechos de autor":"Copyright","Otro problema de seguridad":"Other safety issue",
     "Detalles (opcional)":"Details (optional)","Preparar reporte":"Prepare report"
+    ,"Versión de trabajo 0.3 · 9 de octubre de 2026.":"Working version 0.3 · October 9, 2026."
+    ,"Cronotinta es un taller para crear novelas visuales con ayuda de IA. Diseñas personajes, escenas y decisiones; la IA te propone diálogos, ramas y sprites.":"Cronotinta is a workshop for creating visual novels with AI assistance. Design characters, scenes, and choices; AI can suggest dialogue, story branches, and sprites."
+    ,"Cronotinta no usa ni usará IA generativa de imágenes. Los sprites, fondos y el arte los pones tú; la IA se limita al texto (guiones, diálogos y análisis).":"Cronotinta does not and will not use generative image AI. You provide sprites, backgrounds, and artwork; AI is limited to text (scripts, dialogue, and analysis)."
+    ,"Abre la escena tal como la verá el jugador.":"Preview the scene as the player will see it."
+    ,"Música Recomendar música":"Music · Recommend music"
+    ,"Este juego todavía no tiene escenas.":"This game doesn't have any scenes yet."
+    ,"Este juego todavía no tiene escenas jugables.":"This game doesn't have any playable scenes yet."
+    ,"El sprite importado sustituye automáticamente al avatar predeterminado.":"The imported sprite automatically replaces the default avatar."
+    ,"La escena no tiene personaje asignado; se muestra solo el diálogo.":"No character is assigned to this scene; only the dialogue is shown."
+    ,"La representación pixel pertenece al mismo personaje; no crea otro personaje.":"The pixel-art representation belongs to the same character; it does not create a separate character."
+    ,"El editor existente se mantiene; esta vista añade timeline, eventos y reproducción rápida sin duplicar escenas.":"The existing editor remains intact; this view adds a timeline, events, and quick playback without duplicating scenes."
+    ,"escena → evento RPG · personaje → NPC · lugar → mapa · decisión → variable/consecuencia · conflicto → combate · diálogo → interacción · misión → quest.":"scene → RPG event · character → NPC · place → map · choice → variable/consequence · conflict → combat · dialogue → interaction · mission → quest."
+    ,"No se detectaron desbalances básicos con las reglas locales.":"No basic imbalances were found using the local rules."
+    ,"No hay elementos canónicos bloqueados todavía.":"There are no locked canon elements yet."
+    ,"Exploración":"Exploration"
+    ,"Catálogo de menús y botones":"Menu and button catalog"
+    ,"☰ Menú":"☰ Menu"
+    ,"Guardado rápido":"Quick save"
+    ,"Música: activada":"Music: on"
+    ,"Música: desactivada":"Music: off"
+    ,"Activar colaboración":"Enable collaboration"
+    ,"Añadir personas al equipo":"Add people to the team"
+    ,"Crear enlace de invitación":"Create invitation link"
+    ,"Proyecto de equipo todavía privado. Activa la colaboración para habilitar las invitaciones.":"This team project is still private. Enable collaboration to allow invitations."
+    ,"Aún no tienes proyectos compartidos.":"You don't have any shared projects yet."
+    ,"Inicia sesión para consultar tus proyectos compartidos.":"Sign in to view your shared projects."
+    ,"Abrir noticias de actualizaciones":"Open update news"
+    ,"Noticias de actualizaciones":"Update news"
+    ,"3 novedades sin leer":"3 unread updates"
+    ,"Cerrar noticias":"Close news"
+    ,"Abrir catálogo de Cronotinta":"Open the Cronotinta catalog"
+    ,"Abrir catálogo":"Open catalog"
+    ,"Descargar Cronotinta para Android":"Download Cronotinta for Android"
+    ,"Cassius, el asistente de Cronotinta. Haz clic para provocarlo.":"Cassius, Cronotinta's assistant. Click to tease him."
+    ,"Háblale a Cassius… pregúntale lo que quieras":"Talk to Cassius… ask him anything"
+    ,"Escribe un mensaje para Cassius":"Write a message to Cassius"
+    ,"Conversación con Cassius":"Conversation with Cassius"
+    ,"Acceso a la cuenta":"Account access"
+    ,"Mínimo 6 caracteres":"At least 6 characters"
+    ,"Tu nombre en Cronotinta":"Your name in Cronotinta"
+    ,"Tu edad en años":"Your age in years"
+    ,"Controles de la galería":"Gallery controls"
+    ,"Obra anterior":"Previous artwork"
+    ,"Obra siguiente":"Next artwork"
+    ,"Galería horizontal de ilustraciones":"Horizontal illustration gallery"
+    ,"Cassius, curador de la galería":"Cassius, gallery curator"
+    ,"Tipo de publicación":"Post type"
+    ,"El nombre que verá la comunidad":"The name the community will see"
+    ,"¿De qué trata? ¿Qué debería esperar quien lo juegue?":"What is it about? What should players expect?"
+    ,"Juego de Cronotinta":"Cronotinta game"
+    ,"Elige un formato de proyecto":"Choose a project format"
+    ,"Arrastra para mover":"Drag to move"
+    ,"Sprite de ejemplo":"Sample sprite"
+    ,"Sprite importado":"Imported sprite"
+    ,"Nueva personalidad":"New personality"
+    ,"Nueva habilidad":"New skill"
+    ,"Entrar a Cronotinta":"Enter Cronotinta"
+    ,"Música de fondo":"Background music"
+    ,"Volumen de la música":"Music volume"
+    ,"Cerrar recorrido":"Close walkthrough"
+    ,"Formato para comenzar":"Format to get started"
+    ,"Ritmo de creación":"Creation pace"
+    ,"Documentos":"Documents"
+    ,"Describe brevemente el problema. Evita incluir datos personales.":"Briefly describe the issue. Avoid including personal information."
+    ,"Guarda hasta dos proyectos activos.":"Save up to two active projects."
+    ,"El plan Gratis está pensado para que puedas conocer Cronotinta de verdad. No bloquea el editor RPG ni convierte las herramientas esenciales en una prueba temporal.":"The Free plan is designed to let you experience Cronotinta fully. It does not lock the RPG editor or turn essential tools into a temporary trial."
+    ,"Está pensado para el creador que ya no quiere elegir qué proyecto guardar. Más proyectos, más conversaciones con Cassius y herramientas para detectar problemas antes de publicar.":"Designed for creators who no longer want to choose which project to keep. More projects, more conversations with Cassius, and tools to spot problems before publishing."
+    ,"Para proyectos ambiciosos, equipos y creadores que quieren usar Cronotinta como un taller de producción completo.":"For ambitious projects, teams, and creators who want to use Cronotinta as a complete production workshop."
+    ,"Sin tarjeta para empezar":"No card required to get started"
+    ,"250 interacciones IA al mes":"250 AI interactions per month"
+    ,"1.000 interacciones IA al mes":"1,000 AI interactions per month"
+    ,"Herramientas para equipos":"Team tools"
+    ,"Ideal para conocer el editor y terminar tu primera historia.":"Ideal for exploring the editor and finishing your first story."
+    ,"Encaja con tu plan de crear varias historias y mantener hasta 10 proyectos activos.":"Fits your plan to create multiple stories and keep up to 10 active projects."
+    ,"USD / mes":"USD / month"
+    ,"una novela visual":"a visual novel"
+    ,"un Indie RPG":"an Indie RPG"
+    ,"un proyecto híbrido":"a hybrid project"
+    ,"varios proyectos en marcha":"multiple projects underway"
+    ,"una producción con espacio para crecer":"a production with room to grow"
+    ,"Escribe un personaje y una línea para probar la escena.":"Write a character and a line to try the scene."
+    ,"No se pudo guardar: el navegador bloqueó el almacenamiento.":"Could not save: the browser blocked storage."
+    ,"No se pudo publicar el comentario.":"Could not publish the comment."
+    ,"Solo puedes subir archivos .html o .htm.":"You can only upload .html or .htm files."
+    ,"Selecciona el archivo HTML jugable.":"Select the playable HTML file."
+    ,"Validando archivo…":"Validating file…"
+    ,"Subiendo archivo…":"Uploading file…"
+    ,"Publicando…":"Publishing…"
+    ,"Juego publicado. La comunidad ya puede abrirlo y descargar el HTML.":"Game published. The community can now open it and download the HTML."
+    ,"No se pudo inicializar la cuenta:":"Could not initialize account:"
+    ,"No pude crear la cuenta:":"Could not create account:"
+    ,"No pude leer «":"Could not read “"
+    ,"Subir imagen para «":"Upload image for “"
+    ,"Emoji de ":"Emoji for "
+    ,"Eliminar expresión «":"Delete expression “"
+    ,"Proyecto creado como ":"Project created as "
+    ,"Bienvenido de vuelta, ":"Welcome back, "
+    ,"Cuenta · ":"Account · "
+    ,"Usuario: ":"User: "
+    ,"Fondo de ":"Background for "
+    ,"Expresión de ":"Expression for "
+    ,"Evento canónico: ":"Canon event: "
+    ,"Herramientas activas para el rol ":"Tools enabled for role "
+    ,"Ajuste realizado. Saldo actual: ":"Adjustment applied. Current balance: "
+    ,"Comentar en ":"Comment on "
+    ,"Reporte Cronotinta - ":"Cronotinta report - "
+    ,"Guardado: ":"Saved: "
+    ,"Progreso al nivel ":"Progress to level "
+    ,"Apuesta reservada: ":"Wager reserved: "
+    ,"Cassius eligió el ":"Cassius chose "
+    ,"Elegiste ":"You chose "
+    ,"¡Ganaste! Premio neto: ":"You won! Net prize: "
+    ,"Cassius gana. Perdiste ":"Cassius wins. You lost "
+    ,"No se pudo publicar: ":"Could not publish: "
+    ,"No pude iniciar sesión: ":"Could not sign in: "
+    ,"No pude crear la cuenta: ":"Could not create account: "
+    ,"No se pudo cargar el archivo. ":"Could not load the file. "
+
   };
 
   const textSources = new WeakMap();
@@ -628,7 +746,7 @@
   }
   function translateAttributes(el,lang) {
     if (!el || !el.getAttribute || isProtected(el)) return;
-    ["placeholder","aria-label","title"].forEach(attr => {
+    ["placeholder","aria-label","aria-description","title","alt"].forEach(attr => {
       if (el.hasAttribute(attr)) translateAttribute(el,attr,lang);
     });
   }
@@ -640,7 +758,7 @@
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(n => translateTextNode(n,lang));
     if (root.querySelectorAll) {
-      root.querySelectorAll("[placeholder],[aria-label],[title]").forEach(el => translateAttributes(el,lang));
+      root.querySelectorAll("[placeholder],[aria-label],[aria-description],[title],[alt]").forEach(el => translateAttributes(el,lang));
     }
   }
   function addLanguageControl() {
@@ -714,6 +832,6 @@
       addLanguageControl();
       updateLanguageControl(lang);
     });
-    observer.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:["placeholder","aria-label","title"]});
+    observer.observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:["placeholder","aria-label","aria-description","title","alt","value"]});
   });
 })();

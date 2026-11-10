@@ -823,7 +823,7 @@
     ["Cassius gana. Perdiste ","Cassius wins. You lost "],
     ["No se pudo publicar: ","Could not publish: "]
   ];
-  const partialSuffixes = [["MB · Este archivo será público en el feed.","MB · This file will be public in the feed."],[" novedades sin leer"," unread updates"]];
+  const partialSuffixes = [["MB · Este archivo será público en el feed.","MB · This file will be public in the feed."],[" novedades sin leer"," unread updates"],["” no cambia el desenlace. Considera añadir una consecuencia.","” does not change the outcome. Consider adding a consequence."]];
   const controlPhrases = [
     ["Me gusta","Like"], ["Comentarios","Comments"], ["Favorito","Favorite"],
     ["JUGAR","PLAY"], ["Comentar","Comment"], ["respuestas","replies"],

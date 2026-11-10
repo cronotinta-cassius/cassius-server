@@ -709,6 +709,23 @@
     ,"Creación de juegos para todas las edades.":"Game creation for all ages."
     ,"Salvaguardas de cuenta y comunidad para menores aún pendientes.":"Account and community safeguards for minors are still pending."
 
+    ,"Países en que se ofrece el servicio:":"Countries where the service is offered:"
+    ,". Ley y mecanismo de reclamación:":". Applicable law and complaint mechanism:"
+    ,"Aviso descriptivo de la copia de prueba. El nombre público es Cronotinta; la identidad legal del responsable, mercados y plazos todavía deben definirse.":"Descriptive notice for this test build. The public name is Cronotinta; the responsible party's legal identity, markets, and timelines still need to be defined."
+    ,"Nombre público del proyecto: Cronotinta. La identidad legal y domicilio del responsable no se incluyen en esta copia por decisión del titular y deben resolverse antes del lanzamiento. Contacto de privacidad:":"Public project name: Cronotinta. The responsible party's legal identity and address are not included in this build at the owner's decision and must be resolved before launch. Privacy contact:"
+    ,"correo electrónico y contraseña gestionados por Supabase Auth; nombre de usuario, edad declarada y datos de perfil. La aceptación de los documentos se registra como metadatos de la cuenta con fecha y versión.":"email address and password managed by Supabase Auth; username, self-reported age, and profile information. Acceptance of the documents is recorded as account metadata with a date and version."
+    ,"proyectos, escenas, personajes y recursos se guardan en IndexedDB del navegador. Al publicar un juego, se envía el HTML y sus metadatos a Supabase Storage/Database para mostrarlo en la comunidad.":"projects, scenes, characters, and assets are stored in the browser's IndexedDB. When you publish a game, its HTML file and metadata are sent to Supabase Storage/Database for display in the community."
+    ,"publicaciones, juegos, comentarios, reacciones, favoritos y seguimientos asociados a la cuenta.":"posts, games, comments, reactions, favorites, and follows associated with the account."
+    ,"XP, nivel, logros, Cronos virtuales y rondas del casino.":"XP, level, achievements, virtual Cronos, and casino rounds."
+    ,"el mensaje que escribes, hasta 12 mensajes recientes, pantalla actual y cantidad/nombre/formato de proyectos, más estado emocional, se envían a cassius-server.onrender.com para generar la respuesta.":"the message you write, up to 12 recent messages, the current screen, and the number, names, and formats of projects, plus emotional state, are sent to cassius-server.onrender.com to generate a reply."
+    ,"el inicio de suscripción se tramita en el servidor y PayPal; Cronotinta guarda el plan y estado de suscripción. La interfaz no solicita ni guarda el número de tarjeta.":"subscription setup is handled by the server and PayPal; Cronotinta stores the plan and subscription status. The interface does not request or store your card number."
+    ,"IndexedDB, localStorage y sessionStorage conservan proyectos, preferencias de música y datos de sesión/recorrido en este navegador.":"IndexedDB, localStorage, and sessionStorage retain projects, music preferences, and session/walkthrough data in this browser."
+    ,"El código de esta copia se conecta con Supabase (autenticación, base de datos y archivos), cassius-server.onrender.com (chat y operaciones de suscripción), PayPal (pagos), jsDelivr (biblioteca de Supabase) y Google Fonts (fuentes). Enlaces a Instagram y TikTok pueden abrir servicios externos. Cronotinta no vende datos personales. Puede compartirlos con los proveedores descritos solo para prestar las funciones solicitadas; hay que revisar sus contratos, ubicaciones, transferencias internacionales y subencargados antes de publicar.":"This build connects to Supabase (authentication, database, and files), cassius-server.onrender.com (chat and subscription operations), PayPal (payments), jsDelivr (Supabase library), and Google Fonts (fonts). Links to Instagram and TikTok may open external services. Cronotinta does not sell personal data. It may share data with the listed providers only to deliver the requested features; their contracts, locations, international transfers, and subprocessors must be reviewed before launch."
+    ,"[jurisdicciones]":"[jurisdictions]"
+    ,"[completar tras definir titular y mercados]":"[complete after defining the responsible party and markets]"
+    ,"[definir y publicar]":"[define and publish]"
+    ,"Novela Visual, RPG e Híbrido":"Visual Novel, RPG & Hybrid"
+
   };
 
   const textSources = new WeakMap();
@@ -802,6 +819,7 @@
     if (control && !isProtected(control)) {
       for (const [from,to] of controlPhrases) output = output.split(from).join(to);
     }
+    if (output.startsWith("Colaboración activada · Permiso:")) output = output.replace(" · Versión ", " · Version ");
     const trimmed = output.trimStart();
     const leading = output.slice(0,output.length-trimmed.length);
     for (const [from,to] of partialPrefixes) {

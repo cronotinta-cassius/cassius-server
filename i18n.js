@@ -699,6 +699,16 @@
     ,"Colaboración activada · Permiso:":"Collaboration enabled · Permission:"
     ,"Versión":"Version"
 
+    ,"Pendiente para finalizar:":"Pending before finalization:"
+    ,"identidad legal y domicilio del responsable":"responsible party's legal identity and address"
+    ,"jurisdicciones":"jurisdictions"
+    ,"[jurisdicciones]":"[jurisdictions]"
+    ,"[completar tras definir titular y mercados]":"[complete after defining the responsible party and markets]"
+    ,"[definir y publicar]":"[define and publish]"
+    ,"plazos de conservación y texto de renovación/cancelación revisado contra PayPal.":"retention periods and renewal/cancellation wording reviewed against PayPal."
+    ,"Creación de juegos para todas las edades.":"Game creation for all ages."
+    ,"Salvaguardas de cuenta y comunidad para menores aún pendientes.":"Account and community safeguards for minors are still pending."
+
   };
 
   const textSources = new WeakMap();
@@ -725,6 +735,7 @@
     const el = node && (node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement);
     if (!el) return false;
     if (el.isContentEditable || el.closest("[contenteditable='true']")) return true;
+    if (el.closest && el.closest("#ctLegalDraftModal")) return false;
     if (el.matches && el.matches(protectedContent)) return true;
     return !!(el.closest && el.closest(protectedContent));
   }
